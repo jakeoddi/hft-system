@@ -1,0 +1,52 @@
+name: hft
+channels:
+  - defaults
+dependencies:
+  - bzip2=1.0.8
+  - ca-certificates=2023.12.12
+  - expat=2.5.0
+  - libcxx=14.0.6
+  - libffi=3.4.4
+  - ncurses=6.4
+  - openssl=3.0.13
+  - pip=23.3.1
+  - python=3.12.1
+  - readline=8.2
+  - setuptools=68.2.2
+  - sqlite=3.41.2
+  - tk=8.6.12
+  - tzdata=2023d
+  - wheel=0.41.2
+  - xz=5.4.5
+  - zlib=1.2.13
+  - pip:
+    - backoff==2.2.1
+    - black==23.3.0
+    - certifi==2024.2.2
+    - cffi==1.16.0
+    - charset-normalizer==3.3.2
+    - click==8.1.7
+    - coinbase-advanced-py==1.1.1
+    - contourpy==1.2.0
+    - cryptography==41.0.6
+    - cycler==0.12.1
+    - fonttools==4.49.0
+    - idna==3.6
+    - isort==5.12.0
+    - kiwisolver==1.4.5
+    - matplotlib==3.8.3
+    - mypy-extensions==1.0.0
+    - numpy==1.26.4
+    - packaging==23.2
+    - pathspec==0.12.1
+    - pillow==10.2.0
+    - platformdirs==4.2.0
+    - pycparser==2.21
+    - pyjwt==2.8.0
+    - pyparsing==3.1.1
+    - python-dateutil==2.8.2
+    - requests==2.31.0
+    - six==1.16.0
+    - urllib3==2.2.0
+    - websockets==12.0
+prefix: /Users/jakeoddi/opt/anaconda3/envs/hft

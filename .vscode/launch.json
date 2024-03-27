@@ -1,0 +1,42 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Coinbase JWT",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/coinbase_jwt_generator.py",
+            "args": [],
+            "console": "internalConsole"
+        },
+        {
+            "name": "C++ CMake market_data Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/market_data", // path to built executable
+            "args": ["advanced-trade-ws.coinbase.com", "443"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "miDebuggerPath": "/usr/bin/gdb",
+            "preLaunchTask": "CMake: build", // should match label of CMake build task in tasks.json
+            "launchCompleteCommand": "exec-run"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "CMake market_data/Python JWT",
+            "configurations": ["Python Coinbase JWT", "C++ CMake market_data Debug"],
+            "stopAll": true
+        }
+    ]
+}
