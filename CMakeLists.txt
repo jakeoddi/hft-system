@@ -7,6 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project(hft VERSION 1.0)
 
 add_executable(market_data src/market_data.cpp)
+add_executable(test_thread_utils src/test_thread_utils.cpp)
+add_executable(test_mem_pool src/test_mem_pool.cpp)
 
 find_package(Boost 1.75 REQUIRED COMPONENTS json)
 find_package(OpenSSL REQUIRED)

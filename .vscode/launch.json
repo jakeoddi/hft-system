@@ -30,6 +30,28 @@
             "miDebuggerPath": "/usr/bin/gdb",
             "preLaunchTask": "CMake: build", // should match label of CMake build task in tasks.json
             "launchCompleteCommand": "exec-run"
+        },
+        {
+            "name": "C++ CMake Generic Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/${fileBasenameNoExtension}", // path to built executable
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "miDebuggerPath": "/usr/bin/gdb",
+            "preLaunchTask": "CMake: build", // should match label of CMake build task in tasks.json
+            "launchCompleteCommand": "exec-run"
         }
     ],
     "compounds": [
