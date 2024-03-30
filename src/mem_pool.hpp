@@ -8,7 +8,6 @@
 namespace common {
     template <typename T>
     class MemPool {
-
     public:
         explicit MemPool(int capacity) : 
             capacity_(capacity), 
@@ -31,14 +30,17 @@ namespace common {
         MemPool& operator=(const MemPool&) = delete;
         MemPool& operator=(const MemPool&&) = delete;
 
+        /*
+         * User should not initialize the target object. Instead, pass 
+         * args directly to `allocate`, which will take care of object
+         * construction.
+        */
         template <typename... A>
         T* allocate(A&&... args) {
             // start by finding a free index
             update_next_free_idx();
-            // TODO: 
-            // check if there's available space
-            //     if yes, use next_free_idx_ to allocate
-            //     if not, use least recently used?
+            // TODO: check if there's available space. if yes, use 
+            // next_free_idx_ to allocate. if not, use least recently used?
             ASSERT(size_ < capacity_, "MemPool is full");
             auto new_block = &store_[next_free_idx_];
             ASSERT(
@@ -74,7 +76,8 @@ namespace common {
     
     private:
         struct ObjectBlock {
-            T obj_; // order from largest to smallest to minimize padding
+            // order from largest to smallest to minimize padding
+            T obj_;
             bool is_free_ = true;
         };
 

@@ -19,27 +19,29 @@ namespace common {
     }
 
     template <typename T, typename... A>
-    inline auto create_and_start_thread(int core_id, const std::string& name, T&& func, A&&... args) {
-        std::atomic<bool> running(false), failed(false);
+    inline std::thread* create_and_start_thread(int core_id, std::string name, T&& func, A&&... args) {
+        // these cause a tsan warning
+        // std::atomic<bool> running(false), failed(false);
 
-        auto thread_body = [&]() {
+        // arg list because otherwise it causes tsan warnings
+        auto thread_body = [core_id, name = std::move(name), func, &args...]() {
+            // pass -1 to core_id to avoid setting core affinity
             if (core_id >= 0 && !set_thread_core(core_id)) {
                 std::cerr << "Failed to set core affinity for " << name << " "
                 << pthread_self() << " to " << core_id << std::endl;
-                failed = true;
+                // failed.store(true);
                 return;
             }
             std::cout << " Set core affinity for " << name << " " << pthread_self() 
             << " to " << core_id << std::endl;
 
-            running = true;
+            // running.store(true);
             std::forward<T>(func) ((std::forward<A>(args))...);
         };
 
-        auto t = new std::thread(thread_body);
-        
-        using namespace std::literals::chrono_literals;
-        std::this_thread::sleep_for(1s); // allow time for setup
+        std::thread* t = new std::thread(thread_body);
+        // using namespace std::literals::chrono_literals;
+        // std::this_thread::sleep_for(1s); // allow time for setup
 
         return t;
     }

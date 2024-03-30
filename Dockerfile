@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     gdb \
     libboost-all-dev \
     libssl-dev \
+    libgoogle-perftools-dev \
     wget \
     curl \
     git \
@@ -35,6 +36,20 @@ RUN cd /tmp && \
 RUN cd ${BOOST_ROOT} && \
     ./bootstrap.sh --with-libraries=system,filesystem,thread,regex,chrono,atomic,date_time,json && \
     ./b2 install
+
+# Clone GoogleTest
+RUN git clone --depth=1 https://github.com/google/googletest.git /googletest \
+    && cd /googletest \
+    && mkdir build && cd build \
+    && cmake ../ && make && make install
+
+# Clone Google Benchmark
+RUN git clone --depth=1 https://github.com/google/benchmark.git /benchmark \
+    && git clone --depth=1 https://github.com/google/googletest.git /benchmark/googletest \
+    && cd /benchmark \
+    && mkdir build && cd build \
+    && cmake ../ -DBENCHMARK_DOWNLOAD_DEPENDENCIES=on -DCMAKE_BUILD_TYPE=Release \
+    && make && make install
 
 # Install Miniconda
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh \

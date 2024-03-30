@@ -70,7 +70,8 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "variant": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "*.ipp": "cpp"
     },
     "cmake.configureOnOpen": true,
     "C_Cpp.default.compilerPath": "/usr/bin/g++"
